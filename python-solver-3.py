@@ -128,7 +128,7 @@ class PythonSolver:
         for i in range(len(prob_board)):
           for j in range(len(prob_board[0])):
             prob_board[i][j] = 999999
-        
+
         for i in range(len(prob_board)):
           for j in range(len(prob_board[0])):
             if self.board[i][j]:
@@ -140,10 +140,10 @@ class PythonSolver:
                   if (nx >= 0) and (nx < self.board_size['x']) \
                       and (ny >= 0) and (ny < self.board_size['y']):
                     if (nx != i) and (ny != j):
-                      if prob_board[i][j] >= 999999:
-                        prob_board[i][j] = 0
-                      prob_board[i][j] += cur
-        
+                      if prob_board[nx][ny] >= 999999:
+                        prob_board[nx][ny] = 0
+                      prob_board[nx][ny] += cur
+
         min_score = 999999
         min_pos = []
         for i in range(len(prob_board)):
@@ -155,7 +155,7 @@ class PythonSolver:
                   min_pos = []
                 if prob_board[i][j] == min_score:
                   min_pos.append((i, j))
-          
+
         pos = random.sample(min_pos, 1)[0]
         x = pos[0]
         y = pos[1]
@@ -182,7 +182,7 @@ class PythonSolver:
 if __name__ == "__main__":
 
   # CHANGE HERE ------------------------------
-  solver = PythonSolver("caonima3@brown.edu") # XXX: Replace this with your own unique name
+  solver = PythonSolver("luqi_pan@brown.edu") # XXX: Replace this with your own unique name
   solver_alg = solver.my_solver      # XXX: Replace this with your own solver method
   GAMES = 100                           # XXX: replace this with the number of games that you want to play
   # -------------------------------------------
