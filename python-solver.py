@@ -1,4 +1,4 @@
-import httplib, urllib, random
+import httplib, urllib, random, copy, random
 
 HOST = "minesweeper.nm.io"
 
@@ -108,15 +108,58 @@ class PythonSolver:
           return "lost"
         # Fill the result on the board
         self.board[x][y] = guess_result
+        self.print_board()
 
-    def my_solver(self):
-      """Fill in this solver with your logic"""
-      pass
+  def my_solver(self):
+    """Fill in this solver with your logic"""
+    while True:
+      prob_board = copy.deepcopy(self.board)
+      for i in range(len(prob_board)):
+        for j in range(len(prob_board[0])):
+          prob_board[i][j] = 0
+      
+      for i in range(len(prob_board)):
+        for j in range(len(prob_board[0])):
+          if self.board([i][j]):
+            cur = int(self.board([i][j]))
+            for a in range(-1, 2):
+              for b in range(-1, 2):
+                nx = x + a
+                ny = y + b
+                if (nx >= 0) and (nx < self.board_size['x']) \
+                    and (ny >= 0) and (ny < self.board_size['y']):
+                  if (nx != i) and (ny != j):
+                    prob_board[i][j] += cur
+      
+      min_score = -1
+      min_pos = []
+      for i in range(len(prob_board)):
+        for j in range(len(prob_board[0])):
+          if self.board[i][j] is None:
+            if prob_board[i][j] < min_score:
+              min_score = prob_board[i][j]
+              min_pos = []
+            if prob_board[i][j] == min_score:
+              min_pos.append((i, j))
+      
+      pos = random(min_pos, 1)[0]
+      x = pos[0]
+      y = pos[1]
+      self.guess(x, y)
+      print " Random Guess: (%s,%s): %s" % (x, y, guess_result)
+      # If we won or lost, bail
+      if guess_result == "win":
+        return "win"
+      if guess_result == "lost":
+        return "lost"
+      # Fill the result on the board
+      self.board[x][y] = guess_result
+      self.print_board()
 
 if __name__ == "__main__":
 
   # CHANGE HERE ------------------------------
-  solver = PythonSolver("luqipan+sun@cs.brown.edu") # XXX: Replace this with your own unique name
+  solver = PythonSolver("caonima@brown.edu") # XXX: Replace this with your own unique name
   solver_alg = solver.random_solve      # XXX: Replace this with your own solver method
   GAMES = 1                           # XXX: replace this with the number of games that you want to play
   # -------------------------------------------
