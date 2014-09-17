@@ -10,7 +10,7 @@ class PythonSolver:
     self.board_size = {}
     self.board = None
     self.board_mine_count = None
-  
+
   def parse_board(self, board):
     board_string = board.split(",")
     if len(board_string) != 3:
@@ -116,14 +116,14 @@ class PythonSolver:
 if __name__ == "__main__":
 
   # CHANGE HERE ------------------------------
-  solver = PythonSolver("diogo@squareup.com") # XXX: Replace this with your own unique name
+  solver = PythonSolver("luqipan+sun@cs.brown.edu") # XXX: Replace this with your own unique name
   solver_alg = solver.random_solve      # XXX: Replace this with your own solver method
   GAMES = 1                           # XXX: replace this with the number of games that you want to play
   # -------------------------------------------
 
   results = []
   for _ in range(GAMES):
-    print "# Starting new Game"  
+    print "# Starting new Game"
     solver.new_game()
     results.append(solver_alg())
     print " Final board:"
